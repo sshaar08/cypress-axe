@@ -24,6 +24,7 @@ Cypress.Commands.add('checkA11y', (context, options, violationCallback) => {
     })
     .then(({ violations }) => {
       if (violations.length) {
+        cy.writeFile("violations.json", violations);
         if (violationCallback) violationCallback(violations)
         cy.wrap(violations, { log: false }).each(v => {
           Cypress.log({
